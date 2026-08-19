@@ -1,8 +1,40 @@
 const { app, BrowserWindow, Tray, Menu, ipcMain, nativeImage } = require('electron');
+const fs = require('fs');
 const path = require('path');
 const { ConfigStore } = require('./config-store');
 const { DeepSeekService } = require('./deepseek-service');
 const { createScheduler } = require('./scheduler');
+
+const LOG_FILE = path.join(__dirname, '..', '..', 'startup.log');
+
+app.disableHardwareAcceleration();
+
+if (!app.requestSingleInstanceLock()) {
+  app.quit();
+}
+
+app.on('second-instance', () => {
+  if (petWindow && !petWindow.isDestroyed()) {
+    petWindow.show();
+    petWindow.focus();
+  }
+});
+
+function appendLog(message) {
+  try {
+    fs.appendFileSync(LOG_FILE, `${new Date().toISOString()} ${message}\n`);
+  } catch {
+    // Logging must never crash the app.
+  }
+}
+
+process.on('uncaughtException', (error) => {
+  appendLog(`uncaughtException: ${error && error.stack ? error.stack : error}`);
+});
+
+process.on('unhandledRejection', (reason) => {
+  appendLog(`unhandledRejection: ${reason && reason.stack ? reason.stack : reason}`);
+});
 
 let petWindow = null;
 let settingsWindow = null;
@@ -165,6 +197,12 @@ function createPetWindow() {
       refreshBalance();
     }
   });
+  petWindow.webContents.on('console-message', (_event, level, message) => {
+    appendLog(`renderer console ${level}: ${message}`);
+  });
+  petWindow.webContents.on('render-process-gone', (_event, details) => {
+    appendLog(`renderer gone: ${JSON.stringify(details)}`);
+  });
 }
 
 function registerIpc() {
@@ -200,20 +238,27 @@ function registerIpc() {
   ipcMain.on('settings:open', openSettings);
 }
 
-app.whenReady().then(() => {
-  configStore = new ConfigStore(path.join(app.getPath('userData'), 'config.json'));
-  deepseekService = new DeepSeekService();
-  scheduler = createScheduler({
-    getConfig: () => configStore.data,
-    onTick: () => refreshBalance({ silent: true }),
-  });
+app
+  .whenReady()
+  .then(() => {
+    appendLog('app ready');
+    configStore = new ConfigStore(path.join(app.getPath('userData'), 'config.json'));
+    deepseekService = new DeepSeekService();
+    scheduler = createScheduler({
+      getConfig: () => configStore.data,
+      onTick: () => refreshBalance({ silent: true }),
+    });
 
-  app.setLoginItemSettings({ openAtLogin: Boolean(configStore.data.autostart) });
-  registerIpc();
-  createPetWindow();
-  createTray();
-  scheduler.start();
-});
+    app.setLoginItemSettings({ openAtLogin: Boolean(configStore.data.autostart) });
+    registerIpc();
+    createPetWindow();
+    createTray();
+    scheduler.start();
+    appendLog('windows and tray created');
+  })
+  .catch((error) => {
+    appendLog(`ready error: ${error && error.stack ? error.stack : error}`);
+  });
 
 app.on('window-all-closed', () => {
   // Keep the tray alive so the pet can be restored later.
