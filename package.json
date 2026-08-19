@@ -1,0 +1,40 @@
+{
+  "name": "deepseek-desktop-pet",
+  "version": "1.0.0",
+  "description": "A cute Q-version whale girl desktop pet that watches your DeepSeek API balance.",
+  "main": "src/main/index.js",
+  "author": "wang-invention",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --win portable",
+    "dist": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.wanginvention.deepseekpet",
+    "productName": "DeepSeekDesktopPet",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "assets/icons/pet.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^24.13.3"
+  }
+}

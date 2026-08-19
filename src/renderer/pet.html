@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;" />
+    <title>DeepSeek 桌宠</title>
+    <link rel="stylesheet" href="./pet.css" />
+  </head>
+  <body class="pet-body">
+    <main id="app" class="pet-shell">
+      <div id="status-bubble" class="status-bubble" role="status" aria-live="polite"></div>
+
+      <section id="pet-stage" class="pet-stage" title="右键打开菜单">
+        <img
+          id="pet-sprite"
+          class="pet-sprite"
+          src="./assets/character/whale-girl.svg"
+          alt="DeepSeek 鲸鱼少女桌宠"
+          draggable="false"
+        />
+        <div id="thinking-dots" class="thinking-dots" hidden aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+      </section>
+
+      <section id="balance-card" class="balance-card">
+        <div class="card-header">
+          <span class="card-title">🐳 DeepSeek</span>
+          <span id="updated-label" class="updated-label">刚刚更新</span>
+        </div>
+        <div class="balance-main">
+          <div class="balance-label">当前余额</div>
+          <div id="balance-total" class="balance-total">--</div>
+        </div>
+        <div id="balance-detail" class="balance-detail"></div>
+        <div class="card-actions">
+          <button id="refresh-btn" class="icon-btn" title="刷新余额" aria-label="刷新余额">↻</button>
+          <button id="settings-btn" class="icon-btn" title="设置" aria-label="设置">⚙</button>
+          <button id="hide-btn" class="icon-btn" title="隐藏桌宠" aria-label="隐藏桌宠">−</button>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

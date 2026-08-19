@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;" />
+    <title>DeepSeek 桌宠设置</title>
+    <link rel="stylesheet" href="./settings.css" />
+  </head>
+  <body class="settings-body">
+    <main id="settings-app" class="settings-shell">
+      <header class="settings-header">
+        <div class="settings-title">🐳 DeepSeek 桌宠设置</div>
+        <div class="settings-sub">API Key 只保存在本机，不会出现在源码或 GitHub 上</div>
+      </header>
+
+      <form id="settings-form" class="settings-form">
+        <section class="form-section">
+          <label class="field-label" for="api-key">DeepSeek API Key</label>
+          <input
+            id="api-key"
+            class="text-input"
+            type="password"
+            placeholder="sk-..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <div id="current-key" class="field-note">当前：未配置</div>
+          <label class="check-row" id="clear-key-row" hidden>
+            <input id="clear-key" type="checkbox" />
+            <span>清除已保存的 API Key</span>
+          </label>
+          <div class="button-row">
+            <button id="test-btn" class="soft-btn" type="button">测试连接</button>
+            <span id="test-result" class="test-result"></span>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <label class="check-row">
+            <input id="auto-refresh" type="checkbox" />
+            <span>自动刷新余额</span>
+          </label>
+          <div class="field-group">
+            <label class="field-label" for="refresh-interval">刷新间隔</label>
+            <select id="refresh-interval" class="select-input">
+              <option value="60">1 分钟</option>
+              <option value="300">5 分钟</option>
+              <option value="600">10 分钟</option>
+              <option value="1800">30 分钟</option>
+              <option value="0">关闭自动刷新</option>
+            </select>
+          </div>
+          <label class="check-row">
+            <input id="query-on-start" type="checkbox" />
+            <span>启动时自动查询</span>
+          </label>
+          <label class="check-row">
+            <input id="autostart" type="checkbox" />
+            <span>开机启动</span>
+          </label>
+        </section>
+
+        <footer class="settings-footer">
+          <button id="cancel-btn" class="soft-btn" type="button">取消</button>
+          <button id="save-btn" class="primary-btn" type="submit">保存</button>
+        </footer>
+      </form>
+    </main>
+    <script type="module" src="./settings.js"></script>
+  </body>
+</html>

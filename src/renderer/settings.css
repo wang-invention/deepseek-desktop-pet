@@ -1,0 +1,163 @@
+:root {
+  --blue-deep: #2f6fb3;
+  --blue-mid: #5ba4e8;
+  --blue-soft: #dceeff;
+  --ink: #26465f;
+  --muted: #7d9bb5;
+  --peach: #ffd9c9;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: #f4fbff;
+}
+
+.settings-body {
+  font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+  color: var(--ink);
+}
+
+.settings-shell {
+  width: 100%;
+  min-height: 100%;
+  padding: 22px 24px;
+}
+
+.settings-header {
+  margin-bottom: 16px;
+}
+
+.settings-title {
+  color: var(--blue-deep);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.settings-sub {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-section {
+  padding: 16px;
+  border: 1px solid #cfe8ff;
+  border-radius: 14px;
+  background: var(--white);
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--blue-deep);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.text-input,
+.select-input {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid #bcdcf5;
+  border-radius: 10px;
+  background: #f8fcff;
+  color: var(--ink);
+  font-size: 13px;
+  outline: none;
+}
+
+.text-input:focus,
+.select-input:focus {
+  border-color: var(--blue-mid);
+  box-shadow: 0 0 0 3px rgba(91, 164, 232, 0.16);
+}
+
+.field-note {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  color: var(--ink);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.check-row input {
+  accent-color: var(--blue-mid);
+  width: 16px;
+  height: 16px;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.soft-btn,
+.primary-btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.soft-btn {
+  border: 1px solid #c9e3fb;
+  background: var(--white);
+  color: var(--blue-deep);
+}
+
+.soft-btn:hover {
+  background: var(--blue-soft);
+}
+
+.primary-btn {
+  background: var(--blue-deep);
+  color: var(--white);
+}
+
+.primary-btn:hover {
+  background: #2a5f9d;
+}
+
+.test-result {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.test-result.ok {
+  color: #3c9a6a;
+}
+
+.test-result.fail {
+  color: #b07272;
+}
+
+.settings-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
