@@ -8,6 +8,12 @@ const { createScheduler } = require('./scheduler');
 const LOG_FILE = path.join(__dirname, '..', '..', 'startup.log');
 
 app.disableHardwareAcceleration();
+app.commandLine.appendSwitch('disable-gpu');
+app.commandLine.appendSwitch('disable-gpu-compositing');
+app.commandLine.appendSwitch('disable-software-rasterizer');
+app.commandLine.appendSwitch('in-process-gpu');
+app.commandLine.appendSwitch('no-sandbox');
+app.commandLine.appendSwitch('use-angle', 'swiftshader');
 
 function appendLog(message) {
   try {
