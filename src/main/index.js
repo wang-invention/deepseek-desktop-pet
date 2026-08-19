@@ -9,17 +9,6 @@ const LOG_FILE = path.join(__dirname, '..', '..', 'startup.log');
 
 app.disableHardwareAcceleration();
 
-if (!app.requestSingleInstanceLock()) {
-  app.quit();
-}
-
-app.on('second-instance', () => {
-  if (petWindow && !petWindow.isDestroyed()) {
-    petWindow.show();
-    petWindow.focus();
-  }
-});
-
 function appendLog(message) {
   try {
     fs.appendFileSync(LOG_FILE, `${new Date().toISOString()} ${message}\n`);
