@@ -184,6 +184,10 @@ function createPetWindow() {
   petWindow = new BrowserWindow({
     width: 320,
     height: 440,
+    x: 120,
+    y: 120,
+    center: true,
+    show: false,
     transparent: true,
     frame: false,
     resizable: false,
@@ -198,6 +202,10 @@ function createPetWindow() {
     },
   });
   petWindow.setAlwaysOnTop(true, 'screen-saver');
+  petWindow.once('ready-to-show', () => {
+    petWindow.show();
+    petWindow.focus();
+  });
   petWindow.loadFile(path.join(__dirname, '..', 'renderer', 'pet.html'));
   petWindow.on('close', (event) => {
     if (!quitting) {
