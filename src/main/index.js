@@ -16,10 +16,7 @@ app.setPath(
 app.disableHardwareAcceleration();
 app.commandLine.appendSwitch('disable-gpu');
 app.commandLine.appendSwitch('disable-gpu-compositing');
-app.commandLine.appendSwitch('disable-software-rasterizer');
-app.commandLine.appendSwitch('in-process-gpu');
 app.commandLine.appendSwitch('no-sandbox');
-app.commandLine.appendSwitch('use-angle', 'swiftshader');
 
 function appendLog(message) {
   try {
@@ -157,11 +154,19 @@ function buildContextMenu() {
 }
 
 function createTray() {
-  const icon = nativeImage.createFromPath(ICON_PATH);
-  tray = new Tray(icon);
-  tray.setToolTip('DeepSeek 余额桌宠');
-  tray.setContextMenu(buildContextMenu());
-  tray.on('click', togglePetWindow);
+  try {
+    const icon = nativeImage.createFromPath(ICON_PATH);
+    if (icon.isEmpty()) {
+      appendLog('tray icon missing, tray skipped');
+      return;
+    }
+    tray = new Tray(icon);
+    tray.setToolTip('DeepSeek 余额桌宠');
+    tray.setContextMenu(buildContextMenu());
+    tray.on('click', togglePetWindow);
+  } catch (error) {
+    appendLog(`tray creation failed: ${error && error.message ? error.message : error}`);
+  }
 }
 
 function createPetWindow() {
