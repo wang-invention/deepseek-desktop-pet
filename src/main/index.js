@@ -13,6 +13,17 @@ app.setPath(
   app.isPackaged ? path.join(path.dirname(app.getPath('exe')), 'userData') : DEV_USER_DATA,
 );
 
+if (!app.requestSingleInstanceLock()) {
+  app.quit();
+}
+
+app.on('second-instance', () => {
+  if (petWindow && !petWindow.isDestroyed()) {
+    petWindow.show();
+    petWindow.focus();
+  }
+});
+
 app.disableHardwareAcceleration();
 app.commandLine.appendSwitch('disable-gpu');
 app.commandLine.appendSwitch('disable-gpu-compositing');
