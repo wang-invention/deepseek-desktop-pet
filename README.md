@@ -133,6 +133,7 @@ deepseek-desktop-pet/
 │       ├── components/         # UI 组件拆分
 │       └── assets/character/   # 角色资源
 ├── assets/icons/               # 托盘和打包图标
+├── userData/                   # 运行数据（自动生成，已被 Git 忽略）
 ├── package.json
 └── .gitignore
 ```
@@ -154,6 +155,10 @@ DeepSeek 对余额接口有限流，请等待一段时间后再刷新，或调�
 ### 桌宠不见了
 
 桌宠关闭按钮默认只是隐藏，点击系统托盘图标可以重新显示；托盘菜单里有“退出”。
+
+### 启动时弹出“内存不能为 read”或直接退出
+
+Electron 在个别 Windows 环境里会因无法写入系统 AppData 而在初始化阶段崩溃。本项目已经把运行数据放到程序目录旁的 `userData/` 文件夹，避免依赖 AppData。请确认程序目录或 `userData/` 目录可写即可。
 
 ### 角色图片可以替换吗
 
