@@ -55,7 +55,11 @@ class ConfigStore {
     if (!key) {
       this.data.apiKeyEncrypted = '';
     } else if (safeStorage.isEncryptionAvailable()) {
-      this.data.apiKeyEncrypted = 'enc:' + safeStorage.encryptString(key).toString('base64');
+      try {
+        this.data.apiKeyEncrypted = 'enc:' + safeStorage.encryptString(key).toString('base64');
+      } catch {
+        this.data.apiKeyEncrypted = 'plain:' + key;
+      }
     } else {
       this.data.apiKeyEncrypted = 'plain:' + key;
     }

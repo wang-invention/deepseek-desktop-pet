@@ -7,6 +7,12 @@ const { createScheduler } = require('./scheduler');
 
 const LOG_FILE = path.join(__dirname, '..', '..', 'startup.log');
 
+const DEV_USER_DATA = path.join(__dirname, '..', '..', 'userData');
+app.setPath(
+  'userData',
+  app.isPackaged ? path.join(path.dirname(app.getPath('exe')), 'userData') : DEV_USER_DATA,
+);
+
 app.disableHardwareAcceleration();
 app.commandLine.appendSwitch('disable-gpu');
 app.commandLine.appendSwitch('disable-gpu-compositing');

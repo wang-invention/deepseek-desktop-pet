@@ -5,6 +5,7 @@ release/
 *.log
 *.local
 config.local.*
+userData/
 .env
 .env.*
 !.env.example
