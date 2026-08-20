@@ -26,15 +26,12 @@
         "nsis",
         "portable"
       ],
-      "icon": "assets/icons/pet.png"
+      "icon": "assets/icons/pet.png",
+      "signAndEditExecutable": false
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
     }
-  },
-  "devDependencies": {
-    "electron": "^33.2.0",
-    "electron-builder": "^24.13.3"
   }
 }
